@@ -1,1 +1,1 @@
-WIC Spring 2025 Group 7 Project on event planning!
+https://caileymm.github.io/wic-sp25-group-7-project/
