@@ -15,7 +15,12 @@
             <p> Discover and register for events happening across campus </p>
         </header>
 
-        <main>
+        <div class="tabs">
+            <div class="tab-link" onclick="openTab('events-tab')"> Events </div>
+            <div class="tab-link" onclick="openTab('post-tab')"> Post! </div>
+        </div>
+
+        <div id="events-tab" class="tab">
             <div class="events-container">
                 <!-- Event Box Example -->
                 <div class = "event-card">
@@ -26,6 +31,12 @@
                     <p class = "event-description"> UCSD's biggest annual music festival featuring live performances, food trucks, and more! </p>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <div id="post-tab" class="tab">
+            <div class="events-container">
+                <!-- post tabs -->
+            </div>
+        </div>
     </body>
 </html>
