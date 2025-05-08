@@ -6,4 +6,6 @@ html {
     border-radius: 10px; /* for rounded corners */
     padding: 10px; /* for spacing */
     position: relative;
+    width: 400px;
+    height: auto;
 }
