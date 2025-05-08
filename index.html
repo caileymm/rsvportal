@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>RSVPortal</title>
-   	   <link rel="stylesheet" href="styles.css" type=”text/css”/>
+   	   <link rel="stylesheet" href="styles.css" type="text/css"/>
        <link rel="icon" href="" type="image/x-icon" />
        <script type="text/javascript" src="script.js"></script>
     </head>
@@ -13,27 +13,33 @@
         <header>
             <h1> RSVPortal </h1>
             <p> Discover and register for events happening across campus </p>
+
+            <div class="page-tabs" style="position: absolute; top: 0; right: 0; padding: 15px 15px">
+                <div class="tab-link" onclick="openTab('events-page')" style="float: left;"> Events </div>
+                <div class="tab-link" onclick="openTab('post-page')" style="margin-left: 50px"> Post! </div>
+            </div>
         </header>
 
-        <div class="tabs">
-            <div class="tab-link" onclick="openTab('events-tab')"> Events </div>
-            <div class="tab-link" onclick="openTab('post-tab')"> Post! </div>
-        </div>
-
-        <div id="events-tab" class="tab">
+        <div id="events-page" class="tab">
             <div class="events-container">
-                <!-- Event Box Example -->
+                <!-- Event Card -->
                 <div class = "event-card">
                     <h2 class = "event-title"> Sun God Festival 2025 </h2>
-                    <div class = "event-org"> AS UCSD </div>
-                    <div class = "event-date"> May 3rd, 2025 at 12:00 PM </div>
-                    <div class = "event-location"> RIMAC Field </div>
                     <p class = "event-description"> UCSD's biggest annual music festival featuring live performances, food trucks, and more! </p>
+                    <div class = "event-org"> AS UCSD </div>
+                    <div class = "event-date"> May 3rd, 2025</div>
+                    <div class = "event-time"> 12:00 PM to 6:00 PM </div>
+                    <div class = "event-location"> RIMAC Field </div>
+                    <div style="position: absolute; top: 0; right: 0; padding: 15px 15px">
+                        <div style="float: left; margin-top: 3px; font-size: 20px"> <span class="rsvp-count">0</span> </div>
+                        <img style="width: 20px; margin-left: 5px" src="sungod.jpg">
+                    </div>
+                    <button class = "rsvp-button" type="button" onclick="incRSVPCount(this)"> RSVP! </button>
                 </div>
             </div>
         </div>
 
-        <div id="post-tab" class="tab">
+        <div id="post-page" class="tab">
             <div class="events-container">
                 <!-- post tabs -->
             </div>
