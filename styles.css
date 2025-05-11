@@ -1,0 +1,11 @@
+html {
+    background-color: #F8F9F9
+}
+.event-card {
+    border: 1px solid;
+    border-radius: 10px; /* for rounded corners */
+    padding: 10px; /* for spacing */
+    position: relative;
+    width: 400px;
+    height: auto;
+}
