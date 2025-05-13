@@ -1,1 +1,1 @@
-RSVPortal is currently being designed... It aims to be a centeralized platform for UCSD events! Access RSVPortal here: https://caileymm.github.io/rsvportal/.
+RSVPortal is a web application that aims to be a centeralized platform for UCSD events! UCSD students can post and discover events, from club meetups to study sessions. Access RSVPortal here: https://caileymm.github.io/rsvportal/. RSVPortal is currently being designed (!).
