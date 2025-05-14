@@ -42,3 +42,19 @@ function incRSVPCount(button) {
 
   button.textContent = "RSVPed!";
 }
+
+// image upload feature
+function fileInput() {
+  document.getElementById('file-input').click();
+}
+function replaceImage(event) {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function() {
+      const output = document.getElementById('image');
+      output.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+}

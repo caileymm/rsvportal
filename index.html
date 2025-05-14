@@ -44,10 +44,25 @@
         </div>
 
         <!-- post page -->
-        <div id="post-page" class="tab">
+        <div id="post-page" class="tab" hidden>
             <div class="events-container">
-                <!-- tab  -->
+                <div class="event-input">
+                    <div class="title-input">
+                        <input type="text" id="title" placeholder="Enter event name here."/>
+                    </div>
+                    <div class="date-time-input">
+                        <input type="datetime-local" id="date-time"/>
+                    </div>
+                    <div class="image-upload">
+                        <img src="img_upload.png" alt="Click to upload image" id="image" onclick="fileInput()">
+                        <input type="file" id="file-input" accept="image/*" onchange="replaceImage(event)">
+                    </div>
+                    <div class="description-input">
+                        <textarea id="description" placeholder="Describe the event."></textarea>
+                    </div>
+                    <button class="post-button" type="button">Post Event!</button>
+                </div>
             </div>
         </div>
     </body>
-</html>
+</html> 
