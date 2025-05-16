@@ -11,6 +11,37 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
+function newEvent(eventTitle, eventDescription, eventDate, eventTime, eventLocation, eventImage) {
+  db.collection("eventCard").add({
+      eventTitle: eventTitle,
+      eventDescription: eventDescription,
+      eventDate: eventDate,
+      eventTime: eventTime,
+      eventLocation: eventLocation,
+      eventImage: eventImage
+      // add more....
+  })
+  .then((docRef) => {
+      console.log("Document written with ID: ", docRef.id);
+  })
+  .catch((error) => {
+      console.error("Error adding document: ", error);
+  });
+}
+
+// TEST!!!!
+db.collection("testCollection").add({
+    testField: "testValue",
+    anotherField: "anotherValue"
+})
+.then((docRef) => {
+    console.log("Document written with ID: ", docRef.id);
+})
+.catch((error) => {
+    console.error("Error adding document: ", error);
+});
+
+
 // function to open a specific tab and hide others
 function openTab(tabName) {
   // get all elements with the class 'tab'
