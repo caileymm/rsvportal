@@ -11,15 +11,17 @@ const firebaseConfig = {
 const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-function newEvent(eventTitle, eventDescription, eventDate, eventTime, eventLocation, eventImage) {
-  db.collection("eventCard").add({
+// TO DO: complete implementation of addEvent() (!!)
+function addEvent() {
+  db.collection("eventCards").add({
       eventTitle: eventTitle,
       eventDescription: eventDescription,
+      eventOrg: eventOrg,
       eventDate: eventDate,
       eventTime: eventTime,
       eventLocation: eventLocation,
-      eventImage: eventImage
-      // add more....
+      eventImage: eventImage,
+      rsvpCount: rsvpCount
   })
   .then((docRef) => {
       console.log("Document written with ID: ", docRef.id);
@@ -29,7 +31,7 @@ function newEvent(eventTitle, eventDescription, eventDate, eventTime, eventLocat
   });
 }
 
-// TEST!!!!
+// TEST (DELETE LATER !!)
 db.collection("testCollection").add({
     testField: "testValue",
     anotherField: "anotherValue"
