@@ -1,13 +1,32 @@
 html {
-    background-color: #F8F9F9
+    background-color: #00629d;
+    font-family: "Fredoka";
 }
-.event-card {
-    border: 1px solid;
+
+header {
+    background-color: #ffcd01;
     border-radius: 10px; /* for rounded corners */
-    padding: 10px; /* for spacing */
+}
+
+.event-card {
+    background-color: #F8F9F9;
+    /* border: 1px solid; */
+    border-radius: 10px; /* for rounded corners */
+    padding: 10px 10px; /* for spacing */
     position: relative;
-    width: 400px;
-    height: auto;
+    width: auto;
+    height: 255px;
+    font-size: 16px;
+}
+
+.button {
+    font-family: "Fredoka";
+    border-radius: 20px;
+    width: auto;
+    height: 30px;
+    border: none;
+    font-size: 16px;
 }
 
 /* TO DO: make the website look pretty (flexbox, different fonts, colors, animation, etc -- experiment with it)*/
+
