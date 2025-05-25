@@ -91,3 +91,69 @@ function replaceImage(event) {
     reader.readAsDataURL(file);
   }
 }
+
+function openTab(tabId, button) {
+  document.querySelectorAll('.tab').forEach(tab => tab.hidden = true);
+  document.getElementById(tabId).hidden = false;
+
+  // Remove active class from all buttons
+  document.querySelectorAll('.tab-link').forEach(btn => btn.classList.remove('active'));
+  // Add active class to clicked button
+  button.classList.add('active');
+}
+
+function addEvent() {
+  // Get input values
+  const title = document.getElementById('title').value;
+  const dateTime = document.getElementById('date-time').value;
+  const description = document.getElementById('description').value;
+
+  const fileInput = document.getElementById('file-input');
+  const file = fileInput.files[0];
+
+  if (!title || !dateTime || !description || !file) {
+    alert("Please fill out all fields and select an image.");
+    return;
+  }
+
+  // Create a FileReader to read the image
+  const reader = new FileReader();
+  reader.onload = function (e) {
+    const imageUrl = e.target.result;
+
+    // Create event card HTML
+    const newCard = document.createElement('div');
+    newCard.classList.add('event-card');
+    newCard.innerHTML = `
+      <h2 class="event-title">${title}</h2>
+      <p class="event-description">${description}</p>
+      <div class="event-date-time">${formatDateTime(dateTime)}</div>
+      <img class="event-img" src="${imageUrl}" style="width: 100px; height: auto">
+      <button class="rsvp-button" onclick="incRSVPCount(this)">RSVP!</button>
+    `;
+
+    // Add to the events container
+    document.querySelector('.events-container').appendChild(newCard);
+
+    // Optionally clear the form
+    document.getElementById('title').value = '';
+    document.getElementById('date-time').value = '';
+    document.getElementById('description').value = '';
+    fileInput.value = '';
+  };
+
+  reader.readAsDataURL(file);
+}
+
+// Helper to format date/time
+function formatDateTime(dt) {
+  const date = new Date(dt);
+  return date.toLocaleString();
+}
+
+// Optional RSVP count handler
+function incRSVPCount(button) {
+  if (!button._count) button._count = 0;
+  button._count++;
+  button.textContent = `RSVP (${button._count})`;
+}

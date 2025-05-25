@@ -6,20 +6,34 @@
         <title> RSVPortal </title>
         <link rel="stylesheet" href="styles.css" type="text/css"/>
         <link rel="icon" href="" type="image/x-icon"/>
+        <!-- font -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap" rel="stylesheet">
+        <!-- firebase -->
         <script src="https://www.gstatic.com/firebasejs/11.7.1/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/11.7.1/firebase-firestore-compat.js"></script>
     </head>
 
     <body>
+        <div class="page-wrapper">
         <header>
-            <h1> RSVPortal </h1>
-            <p> Discover and register for events happening across campus </p>
+  <div class="header-row">
+    <div class="logo-title">
+      <img src="Logo.png" alt="RSVPortal logo" id="logo">
+      <div class="title-text">
+        <h1>RSVPortal</h1>
+        <p>Discover and register for events happening across campus</p>
+      </div>
+    </div>
 
-            <div class="page-tabs" style="position: absolute; top: 0; right: 0; padding: 15px 15px">
-                <div class="tab-link" onclick="openTab('events-page')" style="float: left;"> Events </div>
-                <div class="tab-link" onclick="openTab('post-page')" style="margin-left: 50px"> Post! </div>
-            </div>
-        </header>
+    <div class="tab-bar">
+      <button class="tab-link active" onclick="openTab('events-page', this)">Events</button>
+      <button class="tab-link" onclick="openTab('post-page', this)">Post</button>
+    </div>
+  </div>
+</header>
+
 
         <!-- events page -->
         <div id="events-page" class="tab">
@@ -45,28 +59,26 @@
 
         <!-- post page -->
         <div id="post-page" class="tab" hidden>
+
             <div class="post-container">
                 <!-- TO DO: update class names of event-input divs to being similar to class names of event-card divs (!!) -->
                 <!-- TO DO: implement span elements to acts as inputs for each event-input div (see span used above) (!!) -->
                 <!-- TO DO: implement addEvent() in script.js -->
-                <div class="event-input">
-                    <div class="title-input">
-                        <input type="text" id="title" placeholder="Enter event name here."/>
-                    </div>
-                    <div class="date-time-input">
-                        <input type="datetime-local" id="date-time"/>
-                    </div>
-                    <div class="image-upload">
-                        <img src="assets/img_upload.png" alt="Click to upload image" id="image" onclick="fileInput()">
-                        <input type="file" id="file-input" accept="image/*" onchange="replaceImage(event)">
-                    </div>
-                    <div class="description-input">
+                <div class="post-container">
+                    <div class="post-card">
+                        <input type="text" id="title" placeholder="Enter event name here.">
+                        <input type="datetime-local" id="date-time">
+                        <div class="image-upload">
+                            <p>Image Upload</p>
+                            <img src="assets/img_upload.png" alt="Click to upload image" id="image" onclick="fileInput()">
+                            <input type="file" id="file-input" accept="image/*" onchange="replaceImage(event)">
+                        </div>
                         <textarea id="description" placeholder="Describe the event."></textarea>
+                        <button class="post-button" type="button" onclick="addEvent()">Post Event!</button>
                     </div>
-                    <button class="post-button" type="button" onclick="addEvent()">Post Event!</button>
                 </div>
             </div>
+            <script src="script.js"></script>
         </div>
-        <script src="script.js"></script>
     </body>
 </html> 

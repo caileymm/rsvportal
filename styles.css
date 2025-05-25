@@ -1,13 +1,156 @@
 html {
-    background-color: #F8F9F9
+  background-color: #FFFFFF;
 }
+
+body {
+  font-family: 'Sora', sans-serif;
+}
+
+/* Header Row Layout */
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px; 
+}
+
+/* Logo + Text Group */
+.logo-title {
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  float: left;
+  width: 60px;
+  height: auto;
+  margin-right: 15px;
+  margin-top: 5px;
+}
+
+.title-text h1 {
+  margin-bottom: 0.2rem; 
+}
+
+.title-text p {
+  margin-top: 0.2rem; 
+}
+
+/* Tab Bar */
+.tab-bar {
+  display: flex;
+  border-bottom: 1px solid #ccc;
+  gap: 2rem; 
+}
+
+.tab-link {
+  background: none;
+  border: none;
+  outline: none;
+  padding: 10px 0;
+  font-size: 20px;
+  font-family: inherit;
+  font-weight: 400;
+  cursor: pointer;
+  color: #888;
+  border-bottom: 3px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab-link:hover {
+  color: #444;
+}
+
+.tab-link.active {
+  color: #000;
+  font-weight: 500;
+  border-bottom: 3px solid #000;
+}
+
+.page-wrapper {
+  max-width: 1600px; 
+  margin: 0 auto;
+}
+
+.events-container {
+  margin-top: 20px;
+}
+
+/* Event Card */
 .event-card {
-    border: 1px solid;
-    border-radius: 10px; /* for rounded corners */
-    padding: 10px; /* for spacing */
-    position: relative;
-    width: 400px;
-    height: auto;
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 10px;
+  position: relative;
+  width: 400px;
+  height: auto;
 }
+
+/* POST PAGE STYLING */
+.post-container {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  padding-top: 10px; 
+  min-height: 60vh;
+}
+
+
+.post-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  background-color: #fff;
+  width: 500px;            
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+.post-card input[type="text"],
+.post-card input[type="datetime-local"],
+.post-card textarea {
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-family: inherit;
+  width: 100%;
+}
+
+.post-card textarea {
+  resize: vertical;
+  height: 80px;
+}
+
+.image-upload {
+  text-align: center;
+}
+
+.image-upload img {
+  width: 100%;
+  cursor: pointer;
+  border: 2px dashed #aaa;
+  border-radius: 8px;
+  padding: 8px;
+  background-color: #f9f9f9;
+}
+
+.post-button {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.post-button:hover {
+  background-color: #333;
+}
+
 
 /* TO DO: make the website look pretty (flexbox, different fonts, colors, animation, etc -- experiment with it)*/
