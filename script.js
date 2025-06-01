@@ -12,7 +12,7 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
-function setEventCard() {
+function setEventCard(button) {
   // get input values
   const eventName = document.getElementById('post-name').value;
   const eventDesc = document.getElementById('post-desc').value;
@@ -54,6 +54,10 @@ function setEventCard() {
     fileInput.value = '';
   };
   reader.readAsDataURL(file);
+
+  button.textContent = "Posted!";
+  clearPostCard();
+  openTab('events-page');
 }
 
 var eventIds = [];
@@ -197,3 +201,17 @@ function formatTime(timeString) {
 
   return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }
+
+function clearPostCard() {
+  document.getElementById('post-name').value = '';
+  document.getElementById('post-desc').value = '';
+  document.getElementById('post-org').value = '';
+  document.getElementById('post-date').value = '';
+  document.getElementById('post-start-time').value = '';
+  document.getElementById('post-end-time').value = '';
+  document.getElementById('post-loc').value = '';
+  document.getElementById('file-input').value = ''; // clear the file input
+  document.getElementById('image').src = 'assets/img_upload.png'; // reset image preview
+}
+
+window.onload = clearPostCard();

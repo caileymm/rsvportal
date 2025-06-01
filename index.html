@@ -56,25 +56,12 @@
                             <img src="assets/img_upload.png" alt="Click to upload image" id="image" onclick="fileInput()">
                             <input type="file" class="button" id="file-input" accept="image/*" onchange="replaceImage(event)" style="display:none;">
                         </div>
-                        <button class="button" type="button" onclick="setEventCard()">Post Event!</button>
+                        <button class="button" type="button" onclick="setEventCard(this)">Post Event!</button>
                     </div>
                 </div>
             </div>
         </div>
         <script src="script.js"></script>
         <!-- reset form on page load -->
-        <script>
-            window.onload = function() {
-              document.getElementById('post-name').value = '';
-              document.getElementById('post-desc').value = '';
-              document.getElementById('post-org').value = '';
-              document.getElementById('post-date').value = '';
-              document.getElementById('post-start-time').value = '';
-              document.getElementById('post-end-time').value = '';
-              document.getElementById('post-loc').value = '';
-              document.getElementById('file-input').value = ''; // clear the file input
-              document.getElementById('image').src = 'assets/img_upload.png'; // reset image preview
-            }
-          </script>
     </body>
 </html> 
