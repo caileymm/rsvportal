@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title> RSVPortal </title>
         <link rel="stylesheet" href="styles.css" type="text/css"/>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka">
         <link rel="icon" href="" type="image/x-icon"/>
         <!-- font -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,6 +19,7 @@
     <body>
         <div class="page-wrapper">
         <header>
+          
   <div class="header-row">
     <div class="logo-title">
       <img src="Logo.png" alt="RSVPortal logo" id="logo">
@@ -33,27 +35,18 @@
     </div>
   </div>
 </header>
-
+            <h1 style="padding: 5px 10px; margin-bottom: 0;"> RSVPortal </h1>
+            <p style="padding: 10px 10px; margin-top: 0;"> Discover and register for events happening across campus </p>
+            <div class="page-tabs" style="position: absolute; top: 0; right: 0; padding: 30px 20px">
+                <div class="tab-link" onclick="openTab('events-page')" style="float: left; font-size: 16px"> Events </div>
+                <div class="tab-link" onclick="openTab('post-page')" style="margin-left: 55px; font-size: 16px"> Post! </div>
+            </div>
+        </header>
 
         <!-- events page -->
         <div id="events-page" class="tab">
-            <div class="events-container">
-                <!-- event card -->
-                <div class = "event-card">
-                    <!-- TO DO: implement get() functions in script.js to get -->
-                    <h2 class = "event-title"> Sun God Festival 2025 </h2>
-                    <p class = "event-description"> UCSD's biggest annual music festival featuring live performances, food trucks, and more! </p>
-                    <div class = "event-org"> AS UCSD </div>
-                    <div class = "event-date"> May 3rd, 2025</div>
-                    <div class = "event-time"> 12:00 PM to 6:00 PM </div>
-                    <div class = "event-location"> RIMAC Field </div>
-                    <img class = "event-img" src="assets/sungod-festival.jpg" style="width: 100px; height: auto">
-                    <div style="position: absolute; top: 0; right: 0; padding: 15px 15px">
-                        <div style="float: left; margin-top: 3px; font-size: 20px"> <span class="rsvp-count">0</span> </div>
-                        <img style="width: 20px; margin-left: 5px" src="assets/sungod.jpg">
-                    </div>
-                    <button class = "rsvp-button" type="button" onclick="incRSVPCount(this)"> RSVP! </button>
-                </div>
+            <div id="events-container">
+                <!-- event cards go here with js-->
             </div>
         </div>
 
@@ -76,6 +69,8 @@
                         <textarea id="description" placeholder="Describe the event."></textarea>
                         <button class="post-button" type="button" onclick="addEvent()">Post Event!</button>
                     </div>
+
+                    <button class="post-button" type="button" onclick="setEventCard()">Post Event!</button>
                 </div>
             </div>
             <script src="script.js"></script>
