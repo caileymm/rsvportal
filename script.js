@@ -12,91 +12,109 @@ const app = firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 // ------------------------------------------------------------------------------------------------------------------------------------------------------
-var eventIds = [];
-
-// TO DO: complete implementation of setEventCard() (!!)
 function setEventCard() {
-  db.collection("eventCards").add({
-    //eventDescription: eventDescription,
-    //eventOrg: eventOrg,
-    //eventDate: eventDate,
-    //eventTime: eventTime,
-    //eventLocation: eventLocation,
-    //eventImage: eventImage,
-    //rsvpCount: rsvpCount
-  })
-  // TO DO: catch errors
+  // get input values
+  const eventName = document.getElementById('post-name').value;
+  const eventDesc = document.getElementById('post-desc').value;
+  const eventOrg = document.getElementById('post-org').value;
+  const eventDate = document.getElementById('post-date').value;
+  const eventStartTime = document.getElementById('post-start-time').value;
+  const eventEndTime = document.getElementById('post-end-time').value;
+  const eventLoc = document.getElementById('post-loc').value;
+  const fileInput = document.getElementById('file-input');
+  const file = fileInput.files[0];
+
+  if (!eventName || !eventDesc || !eventOrg || !eventDate || !eventStartTime || !eventEndTime || !eventLoc || !file) {
+    alert("Please fill out all fields and select an image.");
+    return;
+  }
+
+  // create a FileReader to read the image
+  const reader = new FileReader(); // Keep FileReader for preview, but use imageUrl directly
+  reader.onload = function () {
+    const imageUrl = reader.result;
+
+    // Add a new document to the 'eventCards' collection
+    db.collection("eventCards").add({
+      eventName: eventName,
+      eventDesc: eventDesc,
+      eventOrg: eventOrg,
+      eventDate: eventDate,
+      eventStartTime: eventStartTime,
+      eventEndTime: eventEndTime,
+      eventLoc: eventLoc,
+      eventImg: imageUrl, // Use the base64 image data
+      eventRSVPCount: 0
+    })
+
+    // optionally clear the form
+    document.getElementById('title').value = '';
+    document.getElementById('date-time').value = '';
+    document.getElementById('description').value = '';
+    fileInput.value = '';
+  };
+  reader.readAsDataURL(file);
 }
 
+var eventIds = [];
+
 function getEventCards() {
-  // db.collection("eventCards").get(): gets a reference to the 'eventCards' collection and fetches all the documents in it
-  // .then()((querySnapshot) => {...)): executed when the asynchronous operation (getting the document) is successful; 'querySnapshot' is an object that contains the results of the query
-  // querySnapshot.docs.forEach((doc) => { ... }): querySnapshot.docs is an arry of document snapshots; forEach() method is used to loop through each doc in this array
-  db.collection('eventCards').get().then((querySnapshot) => {
-    const eventsContainer = document.getElementById('events-container');
-    querySnapshot.docs.forEach((doc) => {
-      const eventData = doc.data();
-      
-      eventIds.forEach((id) => {
-        if (id === doc.id) {
-          let counter = eventsContainer.getAttribute('event-card-id', doc.id).querySelector('.rsvp-count');
-          let currentCount = parseInt(counter.textContent);
-          counter.textContent = eventData.eventRSVPCount;
-          return;
-        }
-      });
+  const eventsContainer = document.getElementById('events-container');
 
-      // create a new div element for the event card
-      const eventCard = document.createElement('div');
-      eventCard.classList.add('event-card');
-      eventCard.setAttribute('event-card-id', doc.id);
+  db.collection('eventCards').onSnapshot((snapshot) => {
+    snapshot.docChanges().forEach((change) => {
+      const eventData = change.doc.data();
+      const eventId = change.doc.id;
 
-      eventCard.innerHTML = `
-        <div style="float: left;">
-          <img class = "event-img" src=${eventData.eventImg} style="width: 200px; height: 250px">
-        </div>
-        <div style="margin-left: 225px">
-          <h2 class = "event-name"> ${eventData.eventName} </h2>
-          <div class = "event-desc"> ${eventData.eventDesc} </div>
-          <div class = "event-org">  ${eventData.eventOrg} </div>
-          <div class = "event-date"> ${eventData.eventDate}  </div>
-          <div class = "event-time"> ${eventData.eventTime} </div>
-          <div class = "event-loc"> ${eventData.eventLoc} </div>
-          <div style="position: absolute; top: 0; right: 0; padding: 15px 15px">
-            <div style="float: left; margin-top: 3px; font-size: 20px"> <span class="rsvp-count">${eventData.eventRSVPCount} </span> </div>
-            <img style="width: 20px; margin-left: 5px" src="assets/sungod.jpg">
+      if (change.type === 'added') {
+        // Create a new event card element
+        const eventCard = document.createElement('div');
+        eventCard.classList.add('event-card');
+        eventCard.setAttribute('event-card-id', eventId);
+
+        eventCard.innerHTML = `
+          <div style="float: left;">
+            <img class="event-img" src=${eventData.eventImg} style="width: 200px; height: 250px">
           </div>
-          <button class = "button" type="button" onclick="incRSVPCount(this)" style="margin-top: 20px"> RSVP! </button>
-        </div>
-      `;
+          <div style="margin-left: 225px">
+            <h2 id="event-name"> ${eventData.eventName} </h2>
+            <div id="event-desc"> ${eventData.eventDesc} </div>
+            <div id="event-org">  ${eventData.eventOrg} </div>
+            <div id="event-date"> ${eventData.eventDate}  </div>
+            <div id="event-time"> ${formatTime(eventData.eventStartTime)} to ${formatTime(eventData.eventEndTime)} </div>
+            <div id="event-loc"> ${eventData.eventLoc} </div>
+            <div style="position: absolute; top: 0; right: 0; padding: 15px 15px">
+              <div style="float: left; margin-top: 3px; font-size: 20px"> <span class="rsvp-count">${eventData.eventRSVPCount} </span> </div>
+              <img style="width: 20px; margin-left: 5px" src="assets/sungod.jpg">
+            </div>
+            <button class="button" type="button" onclick="incRSVPCount(this)" style="margin-top: 20px"> RSVP! </button>
+          </div>
+        `;
 
-      eventsContainer.appendChild(eventCard);
-      eventIds.push(doc.id);
+        eventsContainer.appendChild(eventCard);
+
+      } else if (change.type === 'modified') {
+        // Update the existing event card
+        const eventCard = eventsContainer.querySelector(`[event-card-id='${eventId}']`);
+        if (eventCard) {
+          const rsvpCountElement = eventCard.querySelector('.rsvp-count');
+          if (rsvpCountElement) {
+            rsvpCountElement.textContent = eventData.eventRSVPCount;
+          }
+        }
+
+      } else if (change.type === 'removed') {
+        // Remove the event card from the UI
+        const eventCard = eventsContainer.querySelector(`[event-card-id='${eventId}']`);
+        if (eventCard) {
+          eventsContainer.removeChild(eventCard);
+        }
+      }
     });
   });
 }
 
 getEventCards();
-
-/*
-// TEST (DELETE LATER !!)
-db.collection("eventCards").add({
-  eventName: "Sun God Festival 2025",
-  eventDesc: "UCSD's biggest annual music festival featuring live performances, food trucks, and more!",
-  eventOrg: "AS UCSD",
-  eventDate: "May 3rd, 2025",
-  eventTime: "12:00 PM to 6:00 PM",
-  eventLoc: "RIMAC Field",
-  eventImg: "assets/sungod-festival.jpg",
-  eventRSVPCount: "0"
-})
-.then((docRef) => {
-    console.log("Document written with ID: ", docRef.id);
-})
-.catch((error) => {
-    console.error("Error adding document: ", error);
-});
-*/
 
 // function to open a specific tab and hide others
 function openTab(tabName) {
@@ -125,19 +143,12 @@ function incRSVPCount(button) {
   const counter = button.closest('.event-card').querySelector('.rsvp-count');
   // get the current count from the counter element and convert it to an integer to perform arithmetic
   let currentCount = parseInt(counter.textContent);
-  counter.textContent = currentCount + 1;
   const eventCardId = button.closest('.event-card').getAttribute('event-card-id');
 
   // update the document in Firestore with the new RSVP count
   db.collection("eventCards").doc(eventCardId).update({
     eventRSVPCount: currentCount + 1
   })
-  .then(() => {
-    console.log("Document successfully updated!");
-  })
-  .catch((error) => {
-    console.error("Error updating document: ", error);
-  });
 
   button.textContent = "RSVPed!";
 }
@@ -146,6 +157,7 @@ function incRSVPCount(button) {
 function fileInput() {
   document.getElementById('file-input').click();
 }
+
 function replaceImage(event) {
   const file = event.target.files[0];
   if (file) {
@@ -168,58 +180,20 @@ function openTab(tabId, button) {
   button.classList.add('active');
 }
 
-function addEvent() {
-  // Get input values
-  const title = document.getElementById('title').value;
-  const dateTime = document.getElementById('date-time').value;
-  const description = document.getElementById('description').value;
-
-  const fileInput = document.getElementById('file-input');
-  const file = fileInput.files[0];
-
-  if (!title || !dateTime || !description || !file) {
-    alert("Please fill out all fields and select an image.");
-    return;
-  }
-
-  // Create a FileReader to read the image
-  const reader = new FileReader();
-  reader.onload = function (e) {
-    const imageUrl = e.target.result;
-
-    // Create event card HTML
-    const newCard = document.createElement('div');
-    newCard.classList.add('event-card');
-    newCard.innerHTML = `
-      <h2 class="event-title">${title}</h2>
-      <p class="event-description">${description}</p>
-      <div class="event-date-time">${formatDateTime(dateTime)}</div>
-      <img class="event-img" src="${imageUrl}" style="width: 100px; height: auto">
-      <button class="rsvp-button" onclick="incRSVPCount(this)">RSVP!</button>
-    `;
-
-    // Add to the events container
-    document.querySelector('.events-container').appendChild(newCard);
-
-    // Optionally clear the form
-    document.getElementById('title').value = '';
-    document.getElementById('date-time').value = '';
-    document.getElementById('description').value = '';
-    fileInput.value = '';
-  };
-
-  reader.readAsDataURL(file);
-}
-
 // Helper to format date/time
 function formatDateTime(dt) {
   const date = new Date(dt);
   return date.toLocaleString();
 }
 
-// Optional RSVP count handler
-function incRSVPCount(button) {
-  if (!button._count) button._count = 0;
-  button._count++;
-  button.textContent = `RSVP (${button._count})`;
+// Helper to format time in 12-hour format with AM/PM
+function formatTime(timeString) {
+  if (!timeString) return '';
+
+  const [hours, minutes] = timeString.split(':').map(Number);
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  const formattedHours = hours % 12 || 12; // Convert 0 to 12 for 12 AM/PM
+  const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+
+  return `${formattedHours}:${formattedMinutes} ${ampm}`;
 }

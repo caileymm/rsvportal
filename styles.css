@@ -1,10 +1,9 @@
 html {
-
-  background-color: #FFFFFF;
+  background-color: #00629d;
 }
 
 body {
-  font-family: 'Sora', sans-serif;
+    font-family: "Fredoka";
 }
 
 /* Header Row Layout */
@@ -13,6 +12,7 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 20px 40px; 
+  margin-bottom: 10px;
 }
 
 /* Logo + Text Group */
@@ -79,12 +79,13 @@ body {
 
 /* Event Card */
 .event-card {
-  border: 1px solid;
+  border: 0px solid;
   border-radius: 10px;
   padding: 10px;
   position: relative;
   width: 400px;
   height: auto;
+  margin-bottom: 10px;
 }
 
 /* POST PAGE STYLING */
@@ -105,12 +106,14 @@ body {
   border: 1px solid #ccc;
   border-radius: 12px;
   background-color: #fff;
+  align-self: center;
   width: 500px;            
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .post-card input[type="text"],
-.post-card input[type="datetime-local"],
+.post-card input[type="date"],
+.post-card input[type="time"],
 .post-card textarea {
   padding: 10px;
   font-size: 16px;
@@ -118,6 +121,7 @@ body {
   border: 1px solid #ccc;
   font-family: inherit;
   width: 100%;
+  align-self: center;
 }
 
 .post-card textarea {
@@ -127,6 +131,7 @@ body {
 
 .image-upload {
   text-align: center;
+  align-self: center;
 }
 
 .image-upload img {
@@ -136,28 +141,6 @@ body {
   border-radius: 8px;
   padding: 8px;
   background-color: #f9f9f9;
-}
-
-.post-button {
-  background-color: #000;
-  color: white;
-  border: none;
-  padding: 12px;
-  font-size: 16px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background 0.3s ease;
-}
-
-.post-button:hover {
-  background-color: #333;
-}
-
-
-/* TO DO: make the website look pretty (flexbox, different fonts, colors, animation, etc -- experiment with it)*/
-
-    background-color: #00629d;
-    font-family: "Fredoka";
 }
 
 header {
@@ -184,5 +167,3 @@ header {
     border: none;
     font-size: 16px;
 }
-
-/* TO DO: make the website look pretty (flexbox, different fonts, colors, animation, etc -- experiment with it)*/
