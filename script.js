@@ -29,6 +29,27 @@ function setEventCard(button) {
     return;
   }
 
+  // Define character limits
+  const nameLimit = 100;
+  const descLimit = 500;
+  const orgLimit = 100;
+
+  // Check text field lengths
+  if (eventName.length > nameLimit) {
+    alert(`Event Name exceeds the character limit (${nameLimit}).`);
+    return;
+  }
+  if (eventDesc.length > descLimit) {
+    alert(`Event Description exceeds the character limit (${descLimit}).`);
+    return;
+  }
+
+  // Check file size (500KB limit)
+  const fileSizeLimit = 500 * 1024; // 500 KB in bytes
+  if (file.size > fileSizeLimit) {
+    alert("Image file size exceeds the limit (500KB). Please choose a smaller image.");
+    return;
+  }
   // create a FileReader to read the image
   const reader = new FileReader(); // Keep FileReader for preview, but use imageUrl directly
   reader.onload = function () {
@@ -37,7 +58,7 @@ function setEventCard(button) {
     // Add a new document to the 'eventCards' collection
     db.collection("eventCards").add({
       eventName: eventName,
-      eventDesc: eventDesc,
+ eventDesc: "Cupcake Color Spash: Celebrate Pride with WIC!\n\nJoin us this Pride Month for a fun and vibrant cupcake decorating event! Celebrate love, identity, and community while creating colorful treats, sharing stories, and learning about the history of Pride. Everyone's welcome!",
       eventOrg: eventOrg,
       eventDate: eventDate,
       eventStartTime: eventStartTime,
@@ -78,7 +99,7 @@ function getEventCards() {
 
         eventCard.innerHTML = `
           <div style="float: left;">
-            <img class="event-img" src=${eventData.eventImg} style="width: 200px; height: 250px">
+            <img class="event-img" src=${eventData.eventImg} style="width: 200px; height: 250px; cursor: pointer;">
           </div>
           <div style="margin-left: 225px">
             <h2 id="event-name"> ${eventData.eventName} </h2>
@@ -96,7 +117,7 @@ function getEventCards() {
         `;
 
         eventsContainer.appendChild(eventCard);
-
+        eventCard.querySelector('.event-img').addEventListener('click', () => displayLargerImage(eventData.eventImg));
       } else if (change.type === 'modified') {
         // Update the existing event card
         const eventCard = eventsContainer.querySelector(`[event-card-id='${eventId}']`);
@@ -215,3 +236,21 @@ function clearPostCard() {
 }
 
 window.onload = clearPostCard();
+
+// function to display a larger version of the imag
+function displayLargerImage(imageUrl) {
+  const modal = document.createElement('div');
+  modal.style.position = 'fixed';
+  modal.style.top = '0';
+  modal.style.left = '0';
+  modal.style.width = '100%';
+  modal.style.height = '100%';
+  modal.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+  modal.style.display = 'flex';
+  modal.style.justifyContent = 'center';
+  modal.style.alignItems = 'center';
+  modal.style.zIndex = '1000'; // Ensure it's on top
+ modal.innerHTML = `<img src="${imageUrl}" style="max-width: 90%; max-height: 90%;">`;
+ document.body.appendChild(modal);
+ modal.onclick = () => modal.remove(); // close when clicked
+}
