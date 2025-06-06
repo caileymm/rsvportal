@@ -58,7 +58,7 @@ function setEventCard(button) {
     // Add a new document to the 'eventCards' collection
     db.collection("eventCards").add({
       eventName: eventName,
- eventDesc: "Cupcake Color Spash: Celebrate Pride with WIC!\n\nJoin us this Pride Month for a fun and vibrant cupcake decorating event! Celebrate love, identity, and community while creating colorful treats, sharing stories, and learning about the history of Pride. Everyone's welcome!",
+ eventDesc: eventDesc,
       eventOrg: eventOrg,
       eventDate: eventDate,
       eventStartTime: eventStartTime,
